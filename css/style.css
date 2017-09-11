@@ -159,12 +159,15 @@ img {
   
 }
 .tableHead li {
-  display: table-cell;
+  display: block;
+ 
   padding: 1em 0;
   text-align: right;
+  float: right;
 }
 .tableHead li.prodHeader {
   text-align: left;
+  float: left;
 }
 
 .cart {
@@ -174,19 +177,32 @@ img {
   display: block;
   width: 100%;
   vertical-align: middle;
-  padding: 1.5em 0 ;
+  padding: 1.5em;
   border-bottom: 1px solid #fafafa;
+  background: #fcfcfc;
 }
-.cart .items.even {
-  background: #fafafa;
+.cart .items:nth-child(2n + 1 ){
+  background: #eee;
+}
+.info{
+  width: calc(100% - 100px);
+   float: left;
 }
 .cart .items .infoWrap {
   display: table;
   width: 100%;
+  text-decoration: none;
+  display: block;
+  color: #444;
 }
 .cart .items .cartSection {
-  display: table-cell;
+  display: block;
   vertical-align: middle;
+}
+.cart .items .cartSection:after, .tableHead li:after, .infoWrap:after {
+  content: '';
+  display: block;
+  clear: both;
 }
 .cart .items .cartSection .itemNumber {
   font-size: .75em;
@@ -225,6 +241,8 @@ img {
 }
 .cart .items .cartSection.qtyWrap, .cart .items .cartSection.prodTotal {
   text-align: right;
+  width: 90px;
+  float: right;
 }
 .cart .items .cartSection.qtyWrap p, .cart .items .cartSection.prodTotal p {
   font-weight: bold;
