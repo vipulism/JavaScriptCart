@@ -158,7 +158,7 @@ var items = (function () {
     function _render(totalItems) {
 
         
-       // wraper.innerHTML = ""
+      wraper.innerHTML = ""
 
 
         /**
