@@ -146,6 +146,7 @@ var items = (function () {
     var order = 1;
     var searchInput = document.querySelector('#search');
     var priceSort = document.querySelector('#sort');
+    var wraper = document.querySelector('#prodlist');
 
 
     _render(allItems); // run on load
@@ -156,8 +157,8 @@ var items = (function () {
      */
     function _render(totalItems) {
 
-        var wraper = document.querySelector('#prodlist');
-        wraper.innerHTML = ""
+        
+       // wraper.innerHTML = ""
 
 
         /**
@@ -245,6 +246,7 @@ var items = (function () {
             priceSort.classList = 'sort'
         }, 100);
     }
+ 
 
     /**
      * @desc this function is sued to to bind search box 
@@ -260,3 +262,4 @@ var items = (function () {
 
 
 })();
+ 
