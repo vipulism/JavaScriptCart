@@ -1,4 +1,4 @@
-var items = (function(){
+var items = (function () {
     var filteredItems = [];
     var allItems = [
         {
@@ -142,140 +142,117 @@ var items = (function(){
             "price": 55786
         }
     ]
-    
+
     var order = 1;
     var searchInput = document.querySelector('#search');
 
-    _render(allItems)
 
+    _render(allItems); // run on load
+
+
+    /**
+     * @desc this function is sued to render data in DOM
+     */
     function _render(totalItems) {
 
         var wraper = document.querySelector('#prodlist');
-
         wraper.innerHTML = ""
 
+
+        /**
+         * @desc this function is sued to create template of an item
+         */
         function createElement(item) {
-            //craeteing Elements
-            var newItem = document.createElement("li");
-            var infoWrap = document.createElement("a");
-            var cartSection = document.createElement("div");
-            var name = document.createElement("h3");
-            var price = document.createElement("div");
-
-            //creating content
-            var newContent = document.createTextNode(item.name);
-            var amount = document.createTextNode(item.price);
-            var img = document.createElement('img');
-
-
-            // adding classes
-            img.src = item.image;
-            img.classList = "itemImg";
-            price.classList = 'prodTotal cartSection';
-            cartSection.classList = 'cartSection info';
-            infoWrap.classList = 'infoWrap';
-            newItem.classList = 'items';
-
-            //adding content
-            name.appendChild(newContent);
-
-
-            cartSection.appendChild(img);
-            cartSection.appendChild(name);
-
-            price.appendChild(amount);
-
-            infoWrap.appendChild(cartSection);
-            infoWrap.appendChild(price);
-
-            newItem.appendChild(infoWrap);
-            
-            newItem.id = item.id;
-            infoWrap.href = item.url;
-            infoWrap.target = "_blank";
-            wraper.appendChild(newItem);
-
+            return `<li class="items" id=${item.id}>
+                        <a class="infoWrap" href=${item.url} target="_blank">
+                            <div class="cartSection info"><img src=${item.image} class="itemImg">
+                                <h3>${item.name}</h3>
+                            </div>
+                            <div class="prodTotal cartSection">${item.price}</div>
+                        </a>
+                    </li>`
         }
 
         totalItems.map(item => {
-            createElement(item)
+            wraper.innerHTML = wraper.innerHTML + createElement(item)
         })
-       
+
     }
 
-    function addItem(item){
-        
+    /**
+     * @desc this function is sued to add new item  
+     */
+    function addItem(item) {
         allItems.unshift(item);
-        _render(allItems)
-
+        _render(allItems);
     }
-
-    function removeItem(id){
-        allItems.map( (item, i) => {
-            
-            if (item.id == id) {
-                  allItems.splice(i, 1);
-                }
-         })
+    /**
+     * @desc this function is sued to remove new item  
+     */
+    function removeItem(id) {
+        allItems.map((item, i) => {
+            if (item.id == id) allItems.splice(i, 1);
+        })
         _render(allItems);
     }
 
-    function sort (key) {
+
+    /**
+     * @desc this function is sued to sort data
+     * @param {key} key is used to sort  the list by this key 
+     */
+    function sort(key) {
 
         var sortMyItems = filteredItems.length ? filteredItems : allItems
 
-          if(order){
-              sortMyItems =  sortMyItems.sort(function (a, b) {
-                  var x = a[key]; var y = b[key];
-                  return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-              });
+        if (order) {
+            sortMyItems = sortMyItems.sort(function (a, b) {
+                var x = a[key]; var y = b[key];
+                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            });
 
-              order = 0
-            } else{
-              sortMyItems =  sortMyItems.sort(function (a, b) {
-                  var x = a[key]; var y = b[key];
-                  return ((x > y) ? -1 : ((x < y) ? 1 : 0));
-              });
+            order = 0
+        } else {
+            sortMyItems = sortMyItems.sort(function (a, b) {
+                var x = a[key]; var y = b[key];
+                return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+            });
 
-              order = 1
-            }
-       
+            order = 1
+        }
 
         _render(sortMyItems);
     }
 
-    function search(){
-
-        
+    /**
+     * @desc this function is sued to provide new filtered list by search
+     */
+    function search() {
         setTimeout(function () {
-            
             var val = searchInput.value.toLowerCase();
-            console.log(val);
-
-                if (val) {
-                    filteredItems = allItems.filter(item => {
-                        itemName = item.name.toLowerCase()
-                        return itemName.indexOf(val) != -1
-                    });
-                } else {
-                    filteredItems = allItems;
-                }
-
-                _render(filteredItems);
-
-            }, 500);
-        
+            if (val) {
+                filteredItems = allItems.filter(item => {
+                    itemName = item.name.toLowerCase()
+                    return itemName.indexOf(val) != -1
+                });
+            } else {
+                filteredItems = allItems;
+            }
+            _render(filteredItems);
+        }, 100);
     }
- 
-   //searchInput.addEventListener("keypress", search, false);
-     searchInput.addEventListener("keyup", search, false);
-  //  searchInput.addEventListener("keydown", search, false);
 
+    /**
+     * @desc this function is sued to to bind search box 
+     */
+    searchInput.addEventListener("keyup", search, false);
+
+    
     return {
         add: addItem,
         remove: removeItem,
         sort: sort,
-      }
+    }
 
-    
+
 })();
