@@ -145,6 +145,7 @@ var items = (function () {
 
     var order = 1;
     var searchInput = document.querySelector('#search');
+    var priceSort = document.querySelector('#sort');
 
 
     _render(allItems); // run on load
@@ -211,13 +212,15 @@ var items = (function () {
                 return ((x < y) ? -1 : ((x > y) ? 1 : 0));
             });
 
+            priceSort.classList = 'sort asc'
             order = 0
         } else {
             sortMyItems = sortMyItems.sort(function (a, b) {
                 var x = a[key]; var y = b[key];
                 return ((x > y) ? -1 : ((x < y) ? 1 : 0));
             });
-
+            
+            priceSort.classList = 'sort desc'
             order = 1
         }
 
@@ -247,7 +250,7 @@ var items = (function () {
      */
     searchInput.addEventListener("keyup", search, false);
 
-    
+
     return {
         add: addItem,
         remove: removeItem,

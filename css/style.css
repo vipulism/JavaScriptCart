@@ -456,3 +456,34 @@ a.remove:hover {
     text-align: center;
   }
 }
+
+.sort{
+  display: block;
+  position: relative;
+  padding-right: 10px;
+  text-decoration: none;
+  color: #000;
+}
+.sort.asc::after{
+  color: #eee;
+}
+
+.sort.desc::before{
+  color: #eee;
+}
+
+.sort:after{
+  content: '▼';
+  bottom: -1px;
+}
+.sort:before{
+  top: -1px;
+  content: '▲';
+}
+
+.sort:after, .sort:before{
+   display: block;
+   position: absolute;
+   right: -2px;
+   font-size: 10px;
+}
