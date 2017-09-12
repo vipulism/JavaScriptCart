@@ -242,6 +242,7 @@ var items = (function () {
                 filteredItems = allItems;
             }
             _render(filteredItems);
+            priceSort.classList = 'sort'
         }, 100);
     }
 
