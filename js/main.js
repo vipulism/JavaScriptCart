@@ -254,6 +254,7 @@ var items = (function () {
     searchInput.addEventListener("keyup", search, false);
 
 
+    // API exposed
     return {
         add: addItem,
         remove: removeItem,
